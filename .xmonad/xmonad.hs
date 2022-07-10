@@ -14,6 +14,18 @@ import System.Exit
 import XMonad.Layout.Spacing
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.NoBorders
+import XMonad.Layout.LimitWindows
+import XMonad.Layout.Renamed
+
+-- Different Layout Plugins
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.Magnifier
+import XMonad.Layout.SimplestFloat
+import XMonad.Layout.GridVariants (Grid(Grid))
+import XMonad.Layout.Spiral
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Tabbed
+import XMonad.Layout.Accordion
 
 -- Hooks
 
@@ -228,21 +240,58 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
-myLayout = avoidStruts $ mySpacing 5 $ smartBorders(tiled ||| Mirror tiled ||| Full)
-
+myLayout = (tall ||| grid ||| full ||| spirals ||| magnify ||| floats ||| threeCol ||| threeRow ||| tallAccordion ||| wideAccordion)
+ 
   where
-     -- default tiling algorithm partitions the screen into two panes
-     tiled   = Tall nmaster delta ratio 
-
-     -- The default number of windows in the master pane
-     nmaster = 1
-
-     -- Default proportion of screen occupied by master pane
-     ratio   = 1/2
-
-     -- Percent of screen to increment by when resizing panes
-     delta   = 3/100
-
+     tall           = renamed [Replace "tall"]
+                      $ avoidStruts
+                      $ limitWindows 5
+                      $ mySpacing 8
+                      $ ResizableTall 1 (3/100) (1/2) []
+     magnify        = renamed [Replace "magnify"]
+                      $ avoidStruts
+                      $ limitWindows 5
+                      $ mySpacing 8
+                      $ magnifier
+                      $ ResizableTall 1 (3/100) (1/2) []
+     full           = renamed [Replace "full"]
+                      $ smartBorders
+                      $ Full
+     floats         = renamed [Replace "floats"]
+                      $ avoidStruts
+                      $ smartBorders
+                      $ simplestFloat
+     grid           = renamed [Replace "grid"]
+                      $ avoidStruts
+                      $ limitWindows 9
+                      $ mySpacing 8
+                      $ Grid (16/10)     
+     spirals        = renamed [Replace "spirals"]
+                      $ avoidStruts
+                      $ smartBorders
+                      $ limitWindows 9
+                      $ mySpacing 8
+                      $ spiral (6/7)
+     threeCol       = renamed [Replace "threeCol"]
+                      $ avoidStruts
+                      $ smartBorders
+                      $ limitWindows 4
+                      $ ThreeCol 1 (3/100) (1/2)
+     threeRow       = renamed [Replace "threeRow"]
+                      $ avoidStruts
+                      $ smartBorders
+                      $ limitWindows 7
+                      $ Mirror
+                      $ ThreeCol 1 (3/100) (1/2)
+     -- tabs           = renamed [Replace "tabs"]
+     --                 $ tabbed  
+     tallAccordion  = renamed [Replace "tallAccordion"]
+                      $ avoidStruts
+                      $ Accordion
+     wideAccordion  = renamed [Replace "wideAccordion"]
+                      $ avoidStruts
+                      $ Mirror Accordion
+               
 ------------------------------------------------------------------------
 
 -- MANAGE HOOKS
@@ -346,7 +395,7 @@ main = do
          
     }
     
-    xmproc2 <- spawnPipe "xmobar -x 1 /home/papzi/.config/xmobar/xmobarrc1-border"
+    -- xmproc2 <- spawnPipe "xmobar -x 1 /home/papzi/.config/xmobar/xmobarrc1-border"
 
 
 
