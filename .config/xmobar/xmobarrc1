@@ -1,0 +1,25 @@
+Config { font = "xft:Mononoki Nerd Font:pixelsize=14:antialias=true:hinting=true"
+       , additionalFonts = []
+       , bgColor = "#2e3440"
+       , fgColor = "#b1c8cd"
+       , alpha = 255
+       , position = Static { xpos = 1377, ypos = 10, width = 1896, height = 26 }
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Date "%b %_d %Y : %T " "date" 10
+                    , Run Cpu [] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Com "/home/papzi/.bin/wifi.sh" [] "wifi" 10
+                    , Run Com "/home/papzi/.bin/storage.sh" [] "storage" 10
+                    , Run UnsafeStdinReader ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " %UnsafeStdinReader% }   { <action=$(alacritty -e nmtui)>%wifi%</action> | %date%" }
+ 
+

@@ -1,0 +1,5 @@
+
+#!/bin/bash
+
+ssid=$(nmcli -t -f SSID device wifi list)
+echo $ssid

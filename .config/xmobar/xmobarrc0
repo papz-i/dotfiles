@@ -1,0 +1,24 @@
+Config { font = "xft:Mononoki Nerd Font:pixelsize=13:antialias=true:hinting=true"
+       , additionalFonts = []
+       , bgColor = "#1f2d30"
+       , fgColor = "#b1c8cd"
+       , alpha = 255
+       , position = TopSize L 100 27
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Date "%b%_d | %T " "date" 10
+                    , Run Cpu [] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run UnsafeStdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+      , template = " %UnsafeStdinReader% }  ARCH LINUX {<action=$(alacritty -e nmtui)> </action>   |  | %cpu% | %memory% | %date%" }
+ 
+

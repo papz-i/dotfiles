@@ -1,0 +1,20 @@
+Config { font = "xft:Mononoki Nerd Font:pixelsize=14:antialias=true:hinting=true"
+       , additionalFonts = []
+       , bgColor = "#b1c8cd"
+       , fgColor = "#b1c8cd"
+       , alpha = 255
+       , position = Static { xpos = 1375, ypos = 8, width = 1900, height = 30 }
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = []
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = ""
+ 
+
