@@ -19,7 +19,7 @@ import XMonad.Layout.Renamed
 
 -- Different Layout Plugins
 import XMonad.Layout.ResizableTile
-import XMonad.Layout.Magnifier
+import qualified XMonad.Layout.Magnifier as Mag
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.Spiral
@@ -40,6 +40,11 @@ import Data.Maybe (fromJust)
 import qualified Data.Map        as M
 
 import XMonad.Util.Run
+
+------------------------------------------------------------------------
+
+myFont :: String
+myFont = "xft:Mononoki Nerd Font:regular:size=9:antialias=true:hinting=true"
 
 ------------------------------------------------------------------------
 
@@ -86,12 +91,13 @@ myModMask       = mod4Mask
 -- Example: 
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces    = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 -- myWorkspaces = [" TERM ", " DEV:1 ", " DEV:2 ", " DEV:3 ", " WEB:1 ", " WEB:2 ", " MEDIA ", " STUDIO ", " MISC "]
 
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
+-- Note: Prereq -> Download xdotool 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
     where i = fromJust $ M.lookup ws myWorkspaceIndices
 
@@ -229,18 +235,10 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 -- LAYOUTS
 
--- You can specify and transform your layouts by modifying these values.
--- If you change layout bindings be sure to use 'mod-shift-space' after
--- restarting (with 'mod-q') to reset your layout state to the new
--- defaults, as xmonad preserves your old layout settings by default.
-
--- The available layouts.  Note that each layout is separated by |||,
--- which denotes layout choice.
-
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
-myLayout = (tall ||| grid ||| full ||| spirals ||| magnify ||| floats ||| threeCol ||| threeRow ||| tallAccordion ||| wideAccordion)
+myLayout = (grid ||| full ||| tabs ||| tall ||| spirals ||| threeCol ||| threeRow  ||| floats )
  
   where
      tall           = renamed [Replace "tall"]
@@ -248,12 +246,15 @@ myLayout = (tall ||| grid ||| full ||| spirals ||| magnify ||| floats ||| threeC
                       $ limitWindows 5
                       $ mySpacing 8
                       $ ResizableTall 1 (3/100) (1/2) []
-     magnify        = renamed [Replace "magnify"]
-                      $ avoidStruts
-                      $ limitWindows 5
-                      $ mySpacing 8
-                      $ magnifier
-                      $ ResizableTall 1 (3/100) (1/2) []
+     
+     -- Bug Issue because of the new 17.0 update
+     -- magnify        = renamed [Replace "magnify"]
+     --                 $ avoidStruts
+     --                 $ limitWindows 5
+     --                 $ mySpacing 8
+     --                 $ Mag.magnifier
+     --                 $ ResizableTall 1 (3/100) (1/2) []
+     
      full           = renamed [Replace "full"]
                       $ smartBorders
                       $ Full
@@ -276,22 +277,38 @@ myLayout = (tall ||| grid ||| full ||| spirals ||| magnify ||| floats ||| threeC
                       $ avoidStruts
                       $ smartBorders
                       $ limitWindows 4
+                      $ mySpacing 8
                       $ ThreeCol 1 (3/100) (1/2)
      threeRow       = renamed [Replace "threeRow"]
                       $ avoidStruts
                       $ smartBorders
                       $ limitWindows 7
+                      $ mySpacing 8 
                       $ Mirror
                       $ ThreeCol 1 (3/100) (1/2)
-     -- tabs           = renamed [Replace "tabs"]
-     --                 $ tabbed  
-     tallAccordion  = renamed [Replace "tallAccordion"]
+     tabs           = renamed [Replace "tabs"]
                       $ avoidStruts
-                      $ Accordion
-     wideAccordion  = renamed [Replace "wideAccordion"]
-                      $ avoidStruts
-                      $ Mirror Accordion
-               
+                      $ mySpacing 8
+                      $ tabbed shrinkText tabsConfig 
+     
+     -- tallAccordion  = renamed [Replace "tallAccordion"]
+     --                 $ avoidStruts
+     --                 $ mySpacing 4
+     --                 $ Accordion
+     -- wideAccordion  = renamed [Replace "wideAccordion"]
+     --                 $ avoidStruts
+     --                 $ mySpacing 4
+     --                 $ Mirror Accordion
+
+tabsConfig = def { fontName            = myFont
+                 , activeColor         = "#b1c8cd"
+                 , inactiveColor       = "#2e3440"
+                 , activeBorderColor   = "#2e3440"
+                 , inactiveBorderColor = "#b1c8cd"
+                 , activeTextColor     = "#2e3440"
+                 , inactiveTextColor   = "#b1c8cd"
+                 }
+
 ------------------------------------------------------------------------
 
 -- MANAGE HOOKS
@@ -383,7 +400,7 @@ main = do
 
         { 
            ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x
-           ,ppCurrent = xmobarColor "#b1c8cd" "" . wrap "[" "]"
+           ,ppCurrent = xmobarColor "#b1c8cd" "" . wrap "[" "]" 
            ,ppVisible = xmobarColor "#b1c8cd" "" . clickable
            ,ppHidden  = xmobarColor "#b1c8cd" "" . wrap "*" "" . clickable
            ,ppHiddenNoWindows  = xmobarColor "#7F7F7F" "" . clickable
