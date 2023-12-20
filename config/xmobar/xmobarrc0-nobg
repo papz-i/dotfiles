@@ -1,0 +1,24 @@
+Config { font = "xft:Mononoki Nerd Font:pixelsize=14:antialias=true:hinting=true"
+       , additionalFonts = []
+       , border = FullB
+       , borderColor = "#b1c8cd"
+       , bgColor = "#b1c8cd"
+       , fgColor = "#b1c8cd"
+       , alpha = 0
+       , position = Static { xpos = 12, ypos = 7, width = 1343, height = 25 }
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , allDesktops = True
+       , overrideRedirect = True 
+	   , commands = [ Run Date "%b %_d %Y" "calendar" 10
+	                , Run Date "%T" "time" 10
+                    , Run Com "bash" ["-c", "/home/papzi/.config/xmobar/plugins/time.sh"] "timeicon" 10
+                    , Run Com "bash" ["-c", "/home/papzi/.config/xmobar/plugins/wifi.sh"] "wifi" 10
+					, Run UnsafeStdinReader ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <action=$(rofi -show drun)></action> | %UnsafeStdinReader% }{ <action=$(alacritty -e nmtui)>%wifi%</action> | <action=$(calendar)> %calendar%</action> | <action=$(alacritty -e pomodoro)>%timeicon% %time%</action> | <action=$(rofi -show power-menu -modi power-menu:rofi-power-menu)>  </action>" }       

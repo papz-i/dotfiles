@@ -1,0 +1,8 @@
+2023-12-19T18:22:27.151Z 0: 
+
+----------------------------------------------
+2023-12-19T18:22:27.457Z 1: Discord starting: {"releaseChannel":"stable","version":"0.0.38"}, modulepath: /home/papzi/.config/discord/0.0.38/modules
+2023-12-19T18:22:27.750Z 2: ✅ webContents.created web1 ""
+2023-12-19T18:22:27.962Z 3: ✅ window.created win1 "discord"
+2023-12-19T18:22:34.882Z 4: ✅ webContents.did-finish-load web1
+2023-12-19T18:22:38.924Z 5: window.close win1

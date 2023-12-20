@@ -1,0 +1,22 @@
+# Install zsh and its plugins
+sudo pacman -S zsh
+
+# Powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.config/zsh/powerlevel10k
+echo 'source ~/.config/zsh/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+
+# Autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.config/zsh/zsh-autosuggestions 
+echo 'source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
+
+# Syntax Highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.config/zsh/zsh-syntax-highlighting/
+echo 'source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> ~/.zshrc
+
+# History by using UP and DOWN button
+git clone https://github.com/zsh-users/zsh-history-substring-search ~/.config/zsh/zsh-history-substring-search
+echo 'source ~/.config/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh' >> ~/.zshrc
+
+# Autocompletion
+git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ~/.config/zsh/zsh-autocomplete
+echo 'source ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh' >> ~/.zshrc

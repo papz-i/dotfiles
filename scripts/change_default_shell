@@ -1,0 +1,12 @@
+# Interactive response in changing your default shell
+
+echo '~ Available Shells ~'
+echo '--------------------'
+
+chsh -l;
+
+read -p 'Choose a shell (path): ' shell
+
+chsh -s $shell
+
+grep $(echo $USER) /etc/passwd

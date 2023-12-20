@@ -1,0 +1,20 @@
+#!/bin/bash
+
+function send_notification() {
+	brightness=$(brillo -G)
+	dunstify -a "brillo" -u low -r "9992" -h int:value:"$brightness" -i "volume-$1" "Brightness: ${brightness}%" -t 2000
+}
+
+case $1 in
+up)
+	# Set the volume on (if it was muted)
+	brillo -A 1
+	send_notification $1
+	;;
+down)
+	brillo -U 1
+	send_notification $1
+	;;
+
+esac
+

@@ -1,0 +1,112 @@
+/*
+Tokyo Night Storm
+@define-color bg #24283b;
+@define-color fg #ffffff;
+*/
+
+/* Tokyo Night */
+@define-color bg #1A1B26;
+@define-color fg #c0caf5;
+@define-color bg-dark #16161e;
+
+* {
+    font-family: 'Mononoki Nerd Font', sans-serif;
+    font-size: 13px;
+    color: @fg;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: @fg;
+    transition-property: background-color;
+    transition-duration: .5s;
+    box-shadow: 4px 3px 16px -6px rgba(0,0,0,0.7);
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+}
+
+#workspaces {
+  background: @bg;
+  border-radius: 7px;
+  padding-right: 3px;
+  margin-right: 4px;
+}
+
+#workspaces button {
+    padding: 0px 7px;
+    border-radius: 7px;
+    color: #7aa2f7;
+}
+
+#workspaces button.active {
+    background-color: transparent;
+    border-radius: 15px;
+}
+
+#workspaces button:hover {
+	background-color: transparent;
+	border-radius: 7px;
+}
+
+#backlight, #custom-playerctl, #network, #custom-menu, #clock, #battery, #pulseaudio {
+	padding: 7px 10px 7px 10px;
+  background: @bg;
+}
+
+#custom-menu, #custom-playerctl {
+  border-radius: 7px;
+  background: @bg;
+}
+
+#clock {
+  border-radius: 0 7px 7px 0;
+}
+
+#battery {
+  margin-left: 4px;
+  border-radius: 7px 0px 0px 7px; 
+}
+
+#network {
+  margin-right: 4px;
+  border-radius: 7px;
+}
+
+#pulseaudio {
+  border-radius: 7px 0px 0px 7px; 
+}
+
+#backlight {
+  border-radius: 0px 7px 7px 0px;
+}
+
+#custom-menu {
+  padding-left: 10px;
+  padding-right: 8px;
+  margin-right: 4px;
+}
+
+/*
+#custom-cava-internal{
+  font-family: "Hack Nerd Font";
+}
+*/
+
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+

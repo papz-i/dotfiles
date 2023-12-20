@@ -1,0 +1,56 @@
+
+/* Tokyo Night */
+@define-color bg #1A1B26;
+@define-color fg #c0caf5;
+@define-color bg-dark #16161e;
+
+
+window {
+  margin: 0;
+  border-radius: 10px;
+  background-color: $bg;
+}
+
+#input {
+  margin: 0px;
+  background-color: $bg-dark;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 7px 7px 0px 0px;
+}
+
+#inner-box {
+  margin: 0px;
+  background-color: transparent;
+  border: none;
+}
+
+#outer-box {
+  margin: 0px;
+  border: none;
+  background-color: transparent;
+}
+
+#entry:selected {
+  border: 2px solid $fg;
+  background-color: none;
+  border-radius: 7px;
+  padding: 6px;
+}
+
+#scroll {
+  margin: 0px 5px 0px 5px;
+  background-color: transparent;
+  padding: 5px;
+  border-radius: 7px;
+  border: 2px solid $fg;
+}
+
+#text:selected {
+  margin: 5px;
+  border: none;
+  padding: 7px;
+  color: $fg;
+  background-color: $bg;
+}
+

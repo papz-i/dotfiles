@@ -1,0 +1,15 @@
+#!/bin/bash
+
+display=$(xrandr | grep HDMI-1 | cut -d' ' -f2)
+
+echo "HDMI-1" $display
+
+if [[ $display == "connected" ]]; then
+    echo "Applying dual display mode..."
+    xrandr --output "HDMI-1" --mode 1920x1080 --primary &
+    echo "Dual display applied."
+else
+    echo "Applying single display mode..."
+    xrandr --output "eDP-1" --mode 1366x768 --primary &
+    echo "Single display applied."
+fi

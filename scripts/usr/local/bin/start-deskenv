@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo -e "1. XMonad"
+echo -e "2. Hyprland"
+read -p "Choose a desktop enviroment to work on: " input
+
+case $input in 
+1)
+    exec startx $HOME/.config/deskenv/xmonad_xinitrc
+    ;;
+2)
+    exec startx $HOME/.config/deskenv/hyprland_xinitrc
+    ;;
+esac

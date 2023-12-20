@@ -1,0 +1,8 @@
+# Installing wifi driver for this laptop (HP)
+yay -S broadcom-wl-dkms networkmanager
+sudo systemctl enable NetworkManager
+
+echo "To referesh the driver, please REBOOT the system."
+
+
+

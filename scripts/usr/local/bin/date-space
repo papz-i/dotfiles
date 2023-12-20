@@ -1,0 +1,31 @@
+#!/bin/bash
+
+date_now=$(date +%A)
+
+case $date_now in 
+Sunday)
+	echo "S    U   N   D    A    Y"
+	;;
+Monday)
+	echo "M    O   N   D    A    Y"
+	;;
+Tuesday)
+	echo "T   U   E   S   D   A   Y"
+	;;
+Wednesday)
+	echo "W E D N E S D A Y"
+	;;
+Thursday)
+	echo "T  H  U  R  S  D  A  Y"
+	;;
+Friday)
+	echo "F    R     I     D    A    Y"
+	;;
+Saturday)
+	echo "S  A  T  U  R  D  A  Y"
+	;;
+esac	
+
+
+
+

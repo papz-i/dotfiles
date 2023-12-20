@@ -1,0 +1,3 @@
+#!/bin/bash
+
+termdown -a '30m' && notify-send "POMODORO: Take a 5m break!" "Click again the clock icon to restart the session."

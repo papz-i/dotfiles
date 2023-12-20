@@ -1,0 +1,44 @@
+#!/bin/bash 
+# Display Dectection
+
+detect_display=$(xrandr | grep "HDMI-1" | awk '{print $2}')i
+
+if [ $detect_display == "connected" ]; then
+
+    secondary_display = $(xrandr | grep HDMI-1 | cut -d' ' -f3 | cut -d'+' -f1)
+fi
+
+killall conky
+
+case $1 in
+single0)
+    # Single Display eDP-1
+    xrandr --output "eDP-1" --mode 1366x768
+    #conky -c $HOME/.config/conky/conkysm.conf &
+    nitrogen --restore & 
+    ;;
+single1)
+    # Single Display HDMI-1
+    xrandr --output "HDMI-1" --mode 1920x1080
+    conky -c $HOME/.config/conky/conkydm.conf &
+    nitrogen --restore & 
+    ;;
+dualabove) 
+    # Dual Display
+    xrandr --output "HDMI-1" --mode 1920x1080 --output "eDP-1" --mode 1366x768 --below "HDMI-1"
+    killall xmobar &
+    xmobar $HOME/.config/xmobar/xmobarrc1-rl &
+    #conky -c $HOME/.config/conky/conkydm.conf &
+    nitrogen --restore &
+    ;;
+dualleft)
+    xrandr --output "eDP-1" --mode 1366x768 --output "HDMI-1" --mode 1920x1080 --left-of "eDP-1" 
+    #conky -c $HOME/.config/conky/conkydm.conf &
+    nitrogen --restore & 
+    ;;
+dualright)
+    xrandr --output "eDP-1" --mode 1366x768 --output "HDMI-1" --primary --mode 1920x1080 --right-of "eDP-1"
+    #conky -c $HOME/.config/conky/conkydm.conf &
+    nitrogen --restore & 
+    ;;
+esac

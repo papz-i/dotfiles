@@ -1,0 +1,7 @@
+# Brillo (Brightness Changer)
+
+git clone /tmp/https://gitlab.com/cameronnemo/brillo.git
+make /tmp/brillo
+make install.setgid /tmp/brillo
+
+

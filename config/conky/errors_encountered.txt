@@ -1,0 +1,4 @@
+[PROBLEMS]
+-> Black Background 
+   Solution: own_window = false 
+   Reference: https://bbs.archlinux.org/viewtopic.php?id=156939

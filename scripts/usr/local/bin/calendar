@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Requires Dunst "A notification deployer"
+
+notify-send -u normal "$(cal)"

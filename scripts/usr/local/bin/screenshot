@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Created by Papzi
+# Reference: https://wiki.archlinux.org/title/ImageMagick
+#
+# Dependencies -> xclip, dunst, imagemagick
+
+identifier=$(echo $(date '+%m-%d-%Y--%T'))
+
+freefilename=$(echo "screenshot-free-$identifier.png")
+appfilename=$(echo "screenshot-app-$identifier.png")
+singlefilename=$(echo "screenshot-single-$identifier-.png")
+dualfilename=$(echo "screenshot-dual-$identifier.png")
+
+cd $HOME/Pictures/screenshots
+
+case $1 in 
+app)
+    activeWinLine=$(xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)")
+    activeWinId=${activeWinLine:40}
+    import -window "$activeWinId" $appfilename
+    notify-send -u normal "Screenshot Taken | App" "$appfilename -> $HOME/Pictures/screenshots" 
+    xclip -selection clipboard -t image/png $appfilename
+    ;;
+single)
+    xdpyinfo -ext XINERAMA | sed '/^  head #/!d;s///' |
+    while IFS=' :x@,' read i w h x y; do
+	import -window root -crop ${w}x$h+$x+$y screenshot-single--$i--$identifier.png
+    done
+    notify-send -u normal "Screenshot Taken | Single" "$singlefilename ->$HOME/Pictures/screenshots"
+    xclip -selection clipboard -t image/png $singlefilename
+    ;;
+dual)
+    import -window root -display :0.0 -screen $dualfilename 
+    notify-send -u normal "Screenshot Taken | Dual" "$dualfilename -> $HOME/Pictures/screenshots"
+    xclip -selection clipboard -t image/png $dualfilename
+    ;;
+free)
+    import $freefilename
+    notify-send -u normal "Screenshot Taken | Free" "$freefilename -> $HOME/Pictures/screenshots"
+    xclip -selection clipboard -t image/png $freefilename 
+    ;;
+esac
+
+exit 0
