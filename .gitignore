@@ -1,0 +1,10 @@
+config/desktopenv/
+config/Code/
+config/chromium/
+config/dconf/
+config/libreoffice/
+config/pulse/
+config/QtProject.conf/
+config/VSCodium/
+config/yay/
+
