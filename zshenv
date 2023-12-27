@@ -1,6 +1,6 @@
 export TERMINAL="alacritty"
 export BROWSER="firefox"
-
+export GTK_THEME=Tokyonight-Dark-B
 # Making history persisitent
 HISTFILE=~/.zsh_history
 SAVEHIST=10000

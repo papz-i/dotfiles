@@ -1,3 +1,4 @@
+config/discord/
 config/desktopenv/
 config/Code/
 config/chromium/
@@ -7,4 +8,13 @@ config/pulse/
 config/QtProject.conf/
 config/VSCodium/
 config/yay/
-
+config/discord/Cache/
+config/BetterDiscord/data/
+config/VirtualBox/
+config/bashtop/
+config/okularpartrc
+config/okularrc
+config/spicetify/
+config/spotify/
+config/unity3d/
+config/unityhub/
